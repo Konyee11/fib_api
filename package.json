@@ -1,25 +1,29 @@
 {
-  "name": "fib-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.14",
-    "@types/supertest": "^6.0.2",
-    "jest": "^29.7.0",
-    "supertest": "^7.0.0",
-    "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
-  }
+    "name": "fib-api",
+    "version": "1.0.0",
+    "description": "A simple API to calculate Fibonacci numbers",
+    "main": "dist/server.js",
+    "scripts": {
+        "start": "node dist/server.js",
+        "dev": "ts-node-dev --respawn src/server.ts",
+        "build": "tsc",
+        "test": "jest"
+    },
+    "keywords": [],
+    "author": "Takuma Konishi",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/jest": "^29.5.14",
+        "@types/supertest": "^6.0.2",
+        "jest": "^29.7.0",
+        "supertest": "^7.0.0",
+        "ts-jest": "^29.2.5",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.7.3"
+    }
 }
