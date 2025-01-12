@@ -1,8 +1,8 @@
 {
     "family": "fib-api-task",
     "networkMode": "awsvpc",
-    "executionRoleArn": "arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/ecsTaskExecutionRole",
-    "taskRoleArn": "arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::686255943697:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::686255943697:role/ecsTaskExecutionRole",
     "containerDefinitions": [
         {
             "name": "fib-api",
@@ -33,5 +33,9 @@
     ],
     "requiresCompatibilities": ["FARGATE"],
     "cpu": "256",
-    "memory": "512"
+    "memory": "512",
+    "runtimePlatform": {
+        "cpuArchitecture": "ARM64",
+        "operatingSystemFamily": "LINUX"
+    }
 }
