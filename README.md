@@ -63,3 +63,5 @@ Fibonacci API は，指定された位置のフィボナッチ数を計算して
 ```
 
 ### インフラ構成図
+
+![fib_api_infra](https://github.com/user-attachments/assets/936f3b98-7063-4b92-82ad-bc466528cfc4)
