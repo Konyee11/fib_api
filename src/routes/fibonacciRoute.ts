@@ -3,15 +3,16 @@ import getFibonacci from "../fibonacci";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
+router.get("/", (req: Request, res: Response): void => {
     // クエリパラメータnを取得
     const nParam = req.query.n;
 
     if (!nParam) {
-        // クエリパラメータnが指定されていない場合、400エラーを返す
+        // クエリパラメータnが指定されていない場合、400エラーを返して終了
         res.status(400).json({
             error: "パラメータnを指定してください",
         });
+        return;
     }
 
     // nParamが文字列であるため、数値に変換する
@@ -22,6 +23,7 @@ router.get("/", (req: Request, res: Response) => {
         res.status(400).json({
             error: "nは正の整数で指定してください",
         });
+        return;
     }
 
     try {
@@ -31,7 +33,10 @@ router.get("/", (req: Request, res: Response) => {
         });
     } catch (error: unknown) {
         res.status(500).json({
-            error: "予期せぬエラーが発生しました: " + (error as Error).message,
+            error:
+                error instanceof Error
+                    ? `予期せぬエラーが発生しました: ${error.message}`
+                    : "予期せぬエラーが発生しました",
         });
     }
 });
