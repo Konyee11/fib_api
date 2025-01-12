@@ -6,7 +6,30 @@ on:
             - main
 
 jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. リポジトリのコードをチェックアウト
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            # 2. Node.jsのセットアップ
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "lts/*"
+
+            # 3. パッケージのインストール
+            - name: Install dependencies
+              run: npm install
+
+            # 4. テストの実行
+            - name: Run tests
+              run: npm test
+
     build-and-deploy:
+        needs: test
         runs-on: ubuntu-latest
 
         steps:
