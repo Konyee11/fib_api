@@ -24,7 +24,8 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/fib-api",
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/fib-api-task",
                     "awslogs-region": "ap-northeast-1",
                     "awslogs-stream-prefix": "ecs"
                 }
