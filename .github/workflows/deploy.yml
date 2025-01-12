@@ -53,7 +53,7 @@ jobs:
             # 4. Dockerイメージをビルド
             - name: Build Docker image
               run: |
-                  docker build -t ${{ secrets.ECR_REPOSITORY}}:latest .
+                  docker build --platform linux/arm64 -t ${{ secrets.ECR_REPOSITORY}}:latest .
                   docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
 
             # 5. Amazon ECRにDockerイメージをプッシュ
