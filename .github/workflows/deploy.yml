@@ -10,24 +10,35 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            # 1. リポジトリのコードをチェックアウト
             - name: Checkout code
               uses: actions/checkout@v3
 
+            # 2. AWS認証情報を設定
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.AWS_REGION }}
+
+            # 3. Amazon ECRにログイン
             - name: Login to Amazon ECR
               id: login-ecr
               uses: aws-actions/amazon-ecr-login@v2
-              with:
-                  region: ${{ secrets.AWS_REGION }}
 
+            # 4. Dockerイメージをビルド
             - name: Build Docker image
               run: |
                   docker build -t ${{ secrets.ECR_REPOSITORY}}:latest .
                   docker tag ${{ secrets.ECR_REPOSITORY }}:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
 
+            # 5. Amazon ECRにDockerイメージをプッシュ
             - name: Push Docker image to Amazon ECR
               run: |
                   docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
 
+            # 6. ECSタスク定義を更新
             - name: Update ECS task definition
               id: task-def
               uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -36,6 +47,7 @@ jobs:
                   container-name: fib-api
                   image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
 
+            # 7. ECSサービスにデプロイ
             - name: Deploy to ECS service
               uses: aws-actions/amazon-ecs-deploy-task-definition@v1
               with:
