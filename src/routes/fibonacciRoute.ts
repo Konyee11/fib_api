@@ -19,7 +19,7 @@ router.get("/", (req: Request, res: Response): void => {
     const n = Number(nParam);
 
     if (isNaN(n) || !Number.isInteger(n) || n < 1) {
-        // nが正の整数でない場合、400エラーを返す
+        // nが正の整数でない場合、400エラーを返して終了
         res.status(400).json({
             error: "nは正の整数で指定してください",
         });
@@ -27,9 +27,10 @@ router.get("/", (req: Request, res: Response): void => {
     }
 
     try {
+        // n番目のフィボナッチ数を取得
         const result = getFibonacci(n);
         res.json({
-            result: result.toString(),
+            result: result.toString(), // JSONにはBigInt型をそのまま含められないため、文字列に変換
         });
     } catch (error: unknown) {
         res.status(500).json({
