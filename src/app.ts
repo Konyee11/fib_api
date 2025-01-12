@@ -5,6 +5,6 @@ import fibonacciRouter from "./routes/fibonacciRoute";
 const app = express();
 
 app.use("/hello", helloRouter);
-app.use("/fibonacci", fibonacciRouter);
+app.use("/fib", fibonacciRouter);
 
 export default app;
